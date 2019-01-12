@@ -1,0 +1,103 @@
+@layout('main')
+
+@section('content')
+<div class="container w-50">
+    <a href="/profile/{{reportWriter.id}}">< Back</a>
+    <div class="card">
+        <div class="card-header" style="font-weight:bold">
+            Create Contact Report
+        </div>
+
+        <div class="card-body">
+            
+        @if(old('Message'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{old('Message')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @elseif(old('Error'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{old('Error')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @else
+          
+        @endif
+
+            <form action="/profile/{{reportWriter.id}}/create_contact_report" method="post">
+                {{ csrfField() }}
+                <div class="form-group">
+                  <label>Subject</label>
+                  <input type="text" class="form-control" placeholder="Subject" name="subject" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Location/Address</label>
+                  <input type="text" class="form-control" placeholder="Location" name="location" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                    <label>Meeting Date</label>
+                    <input type="datetime-local" class="form-control" placeholder="Meeting Date" name="meeting_date">
+                    </div>
+
+                    <div class="form-group col">
+                    <label>Client/Company's Name</label>
+                    <input type="text" class="form-control" placeholder="Client/Company's Name" name="client_name" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                    <label>Client Attendees</label>
+                    <input type="text" class="form-control" placeholder="Client Attendees" name="client_attendees" required>
+                    </div>
+
+                    <div class="form-group col">
+                    <label for="status_id">Agency Attendees</label>
+                    <select class="form-control" name="agency_attendees">
+                    <option>Choose...</option>
+                    @each(user in users)
+                        <option value="{{user.id}}">{{user.firstName}} {{user.lastName}}</option>
+                    @endeach
+                    </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Third Party Attendees(If applicable)</label>
+                  <input type="text" class="form-control" placeholder="Third Party Attendees" name="third_party_attendees" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="detail">Meeting Summary</label>
+                  <textarea class="form-control" name="meeting_summary" rows="5" placeholder="Meeting Summary" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="detail">Action Points</label>
+                  <textarea class="form-control" name="action_points" rows="3" placeholder="Action Points" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="status_id">Assign user to follow up/carry out action</label>
+                    <select class="form-control" name="assigned_action_user">
+                    <option>Choose...</option>
+                    @each(user in users)
+                        <option value="{{user.id}}">{{user.firstName}} {{user.lastName}}</option>
+                    @endeach
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@endsection

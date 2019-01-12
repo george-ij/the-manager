@@ -1,0 +1,36 @@
+@layout('main')
+
+@section('content')
+
+<div class="container w-50">
+  <a href="{{ route('redirect_profile') }}">< Back</a>
+  <div class="card">
+    <div class="card-header">
+      General Report
+    </div>
+    <div class="card-body">
+      <p class="card-title"><strong>Report Writer</strong>: {{reportWriter.firstName}} {{reportWriter.lastName}}</p>
+      <p class="card-text"><strong>Date Report Submitted</strong>: {{newContactReport.created_at}}</p>
+
+      @if(newContactReport.updated_at)
+        <p class="card-text"><strong>Date Report Updated</strong>: {{newContactReport.updated_at}}</p>
+      @endif
+
+      <p class="card-text"><strong>Subject</strong>: {{newContactReport.Subject}}</p>
+      <p class="card-text"><strong>Meeting Location</strong>: {{newContactReport.meetingLocation}}</p>
+      <p class="card-text"><strong>Meeting Date</strong>: {{newContactReport.meetingDate}}</p>
+      <p class="card-text"><strong>Contact Report Number</strong>: {{newContactReport.contactReportNumber}}</p>
+      <p class="card-text"><strong>Client Attendees</strong>: {{newContactReport.clientAttendees}}</p>
+      <p class="card-text"><strong>Agency Attendees</strong>: {{agencyAttendees.firstName}} {{agencyAttendees.lastName}}</p>
+
+      @if(newContactReport.thirdPartyAttendees)
+        <p class="card-text"><strong>Third Party Attendees</strong>: {{newContactReport.thirdPartyAttendees}}</p>
+      @endif
+
+      <p class="card-text"><strong>Meeting Summary</strong>: {{newContactReport.meetingSummary}}</p>
+      <p class="card-text"><strong>Action Point</strong>: {{newContactReport.actionPoint}}</p>
+      <p class="card-text"><strong>Action Assigned User</strong>: {{actionAssignedUser.firstName}} {{actionAssignedUser.lastName}}</p>
+    </div>
+  </div>
+</div>
+@endsection

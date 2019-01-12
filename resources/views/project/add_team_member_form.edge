@@ -1,0 +1,46 @@
+@layout('main')
+    
+@section('content')
+<div class="container w-25">
+  <a href="/project/{{project.id}}">< Back</a>
+  <div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Create Team for {{ project.title}}</h5>
+
+        @if(old('Message'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{old('Message')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        @elseif(old('Error'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{old('Error')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        @else
+          
+        @endif
+      
+      <form action="/project/{{project.id}}/create_team" method="post" class="mt-5">
+        {{ csrfField() }}
+        <div class="form-group">
+        <input type="hidden" name="project_id" value="{{project.id}}">
+        <input type="hidden" name="project_name" value="{{project.title}}">
+          <select name="selectedMember" multiple>
+            @each(user in users)
+              <option value="{{user.id}}">{{user.firstName}} {{user.lastName}}</option>
+            @endeach
+          </select>
+          </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+
+      <p class="card-text mt-5">Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+    </div>
+  </div>
+</div>
+@endsection

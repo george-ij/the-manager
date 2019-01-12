@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Manager App</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="/css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="/css/flat-admin.css">
+
+  <!-- Theme -->
+  <link rel="stylesheet" type="text/css" href="/css/theme/blue-sky.css">
+  <link rel="stylesheet" type="text/css" href="/css/theme/blue.css">
+  <link rel="stylesheet" type="text/css" href="/css/theme/red.css">
+  <link rel="stylesheet" type="text/css" href="/css/theme/yellow.css">
+
+</head>
+<body>
+  <div class="app app-default">
+    <aside class="app-sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a class="sidebar-brand" href="#"><span class="highlight">Admin</span> Dashboard</a>
+        <button type="button" class="sidebar-toggle">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div class="sidebar-menu">
+        <ul class="sidebar-nav">
+          <li class="">
+            <a href="/dashboard">
+              <div class="icon">
+                <i class="fa fa-tasks" aria-hidden="true"></i>
+              </div>
+              <div class="title">Profiles</div>
+            </a>
+          </li>
+
+          <li class="active">
+            <a href="/dashboard/projects">
+              <div class="icon">
+                <i class="fa fa-comments" aria-hidden="true"></i>
+              </div>
+              <div class="title">Projects</div>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+      <div class="sidebar-footer">
+        <ul class="menu">
+          <li>
+            <a href="/" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-cogs" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li><a href="#"><span class="flag-icon flag-icon-th flag-icon-squared"></span></a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <div class="app-container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="card">
+            <div class="card-header" style="font-weight:900; color: #000; font-size: 21px">
+              Profiles
+            </div>
+            <div class="card-body no-padding">
+              <table class="datatable table table-striped primary" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>E-mail</th>
+                        <th>Phone Number</th>
+                        <th>Role</th>
+                        <th>Time Created</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                @each(user in users)
+                  <a data-href='url://profile/{{user.id}}'>
+                    <tr>
+                      <td>{{user.firstName}}</td>
+                      <td>{{user.lastName}}</td>
+                      <td>{{user.email}}</td>
+                      <td>{{user.phoneNo}}</td>
+                      <td>{{user.role_id}}</td>
+                      <td>{{user.created_at}}</td>
+                    </tr>
+                  </a>
+                @endeach
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12">
+          <div class="card">
+            <div class="card-header" style="font-weight:900; color: #000; font-size: 21px">
+              All Profiles
+            </div>
+            <div class="card-body no-padding">
+              <table class="datatable table table-striped primary" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Details</th>
+                        <th>Proposed Start Date</th>
+                        <th>Proposed End Date</th>
+                        <th>Actual Start Date</th>
+                        <th>Actual End Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                @each(project in projects)
+                  <a href='profile/{{project.id}}'>
+                    <tr>
+                      <td>{{project.title}}</td>
+                      <td>{{project.details}}</td>
+                      <td>{{project.proposedStartDate}}</td>
+                      <td>{{project.proposedEndDate}}</td>
+                      <td>{{project.actualStartDate}}</td>
+                      <td>{{project.actualEndDate}}</td>
+                      <td>{{project.status_id}}</td>
+                    </tr>
+                  </a>
+                @endeach
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  <script type="text/javascript" src="/js/vendor.js"></script>
+  <script type="text/javascript" src="/js/app.js"></script>
+
+</body>
+</html>

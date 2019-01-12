@@ -1,0 +1,111 @@
+@layout('main')
+
+@section('content')
+<div class="container w-50">
+  <div class="card mb-4">
+    @if(old('Message'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{old('Message')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @elseif(old('Error'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{old('Error')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @else
+
+    @endif
+    <img class="card-img-top" src="/img/profile.png" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{ profile.firstName}} {{profile.lastName}}</h5>
+      <p class="card-text"><strong>Email</strong>: {{ profile.email }}</p>
+      <p class="card-text"><strong>Phone Number</strong>: {{ profile.phoneNo }}</p>
+      <p class="card-text"><strong>Date Created</strong>:
+      @if(profile.created_at == null)
+        Null
+      @else
+        {{ profile.created_at }}
+      @endif
+      </p>
+      <p class="card-text"><strong>Role</strong>:
+      @if(profile.role_id == 1)
+         Guest
+      @elseif(profile.role_id == 2)
+         Student
+      @elseif(profile.role_id == 3)
+         Intern
+      @elseif(profile.role_id == 4)
+         Staff
+      @elseif(profile.role_id == 5)
+         Admin
+      @elseif(profile.role_id == 6)
+         Super Admin
+      @endif
+      </p>
+
+      @if(profile.projects.length > 0)
+        <p class="card-text"><strong>All Projects </strong></p>
+        @each(item in profile.projects)
+        <ul class="list-group list-group-flush">
+          <a href="/project/{{item.id}}" class="list-group-item">{{item.title}}</a>
+        </ul>
+        @endeach
+      @endif
+
+      @if(profile.todos.length > 0)
+        <p class="card-text"><strong>All Todos </strong></p>
+        @each(item in profile.todos)
+        <ul class="list-group list-group-flush">
+          <a href="/project/{{item.id}}" class="list-group-item">{{item.title}}</a>
+        </ul>
+        @endeach
+      @endif
+
+      @if(profile.note.length > 0)
+        <p class="card-text"><strong>All Notes </strong></p>
+        @each(item in profile.note)
+        <ul class="list-group list-group-flush">
+          <a href="/project/{{item.id}}" class="list-group-item">{{item.title}}</a>
+        </ul>
+        @endeach
+      @endif
+
+      @if(profile.generalReport.length > 0)
+        <p class="card-text"><strong>All General Reports </strong></p>
+        @each(item in profile.generalReport)
+        <ul class="list-group list-group-flush">
+          <a href="/project/{{item.id}}" class="list-group-item">{{item.title}}</a>
+        </ul>
+        @endeach
+      @endif
+
+      @if(profile.contactReport.length > 0)
+        <p class="card-text"><strong>All Contact Reports </strong></p>
+        @each(item in profile.contactReport)
+        <ul class="list-group list-group-flush">
+          <a href="/project/{{item.id}}" class="list-group-item">{{item.Subject}}</a>
+        </ul>
+        @endeach
+      @endif
+
+      <form action="{{ '/profile/' + profile.id + 'delete/?_method=DELETE'}}" method="post" class="mt-4">
+        {{ csrfField() }}
+        <a href="/project/create_project_form" class="btn btn-info mt-2">Create Project</a>
+        <a href="/profile/{{profile.id}}/create_general_report_form" class="btn btn-primary mt-2">Create General Report</a>
+        <a href="/profile/{{profile.id}}/create_todo_form" class="btn btn-secondary mt-2">Create ToDo</a>
+        <a href="/profile/{{profile.id}}/create_note_form" class="btn btn-light mt-2">Create Note</a>
+        <a href="/profile/{{profile.id}}/create_contact_report_form" class="btn btn-dark mt-2">Create Contact Report</a>
+        <a href="/logout" class="btn btn-secondary mt-2">Logout</a>
+        <a href="/profile/{{profile.id}}/edit" class="btn btn-warning mt-2">Edit</a>
+        <a href="/profile/{{profile.id}}/password_form" class="btn btn-success mt-2">Change Password</a>
+      </form>
+    </div>
+  </div>
+</div>
+
+@endsection
